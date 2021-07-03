@@ -1,0 +1,17 @@
+﻿  NumericOverflow.cpp
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(51): warning C4715: 'convert_to_enum': not all control paths return a value
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(89): warning C4715: 'is_overflow<wchar_t>': not all control paths return a value
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(89): warning C4715: 'is_overflow<char>': not all control paths return a value
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(89): warning C4715: 'is_overflow<short>': not all control paths return a value
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(89): warning C4715: 'is_overflow<int>': not all control paths return a value
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(89): warning C4715: 'is_overflow<long>': not all control paths return a value
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(89): warning C4715: 'is_overflow<__int64>': not all control paths return a value
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(89): warning C4715: 'is_overflow<unsigned char>': not all control paths return a value
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(89): warning C4715: 'is_overflow<unsigned int>': not all control paths return a value
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(89): warning C4715: 'is_overflow<unsigned short>': not all control paths return a value
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(89): warning C4715: 'is_overflow<unsigned long>': not all control paths return a value
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(89): warning C4715: 'is_overflow<unsigned __int64>': not all control paths return a value
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(89): warning C4715: 'is_overflow<float>': not all control paths return a value
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(89): warning C4715: 'is_overflow<double>': not all control paths return a value
+C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\NumericOverflow\NumericOverflow.cpp(89): warning C4715: 'is_overflow<long double>': not all control paths return a value
+  NumericOverflow.vcxproj -> C:\Users\marco\OneDrive - SNHU\CS-405 Secure Coding\Code\Module 1\NumericOverflow\Debug\NumericOverflow.exe
