@@ -16,7 +16,7 @@ enum class string_type_values
 	eUnsignedShortInt,
 	eUnsignedInt,
 	eUnsignedLong,
-	eUnsignedLongLong,
+	eUnsignedInt64,
 	eFloat,
 	eDouble,
 	eLongDouble
@@ -48,12 +48,50 @@ string_type_values convert_to_enum(std::string type_value)
     {
         return string_type_values::eInt64;
     }
+    else if (type_value == "unsigned char")
+    {
+        return string_type_values::eUnsignedChar;
+    }
+    else if (type_value == "unsigned short")
+    {
+        return string_type_values::eUnsignedShortInt;
+    }
+    else if (type_value == "unsigned int")
+    {
+        return string_type_values::eUnsignedInt;
+    }
+    else if (type_value == "unsigned long")
+    {
+        return string_type_values::eUnsignedLong;
+    }
+    else if (type_value == "unsigned __int64")
+    {
+        return string_type_values::eUnsignedInt64;
+    }
+    else if (type_value == "float")
+    {
+        return string_type_values::eFloat;
+    }
+    else if (type_value == "double")
+    {
+        return string_type_values::eDouble;
+    }
+    else if (type_value == "long double")
+    {
+        return string_type_values::eLongDouble;
+    }
 }
 
 template <typename T>
-bool ValidValue(T result, int64_t max, T const& increment)
+bool is_valid_maximum_value(T result, float max, T const& increment)
 {
     return (result > 0) && (result > max - increment);
+}
+
+template <typename T>
+bool is_valid_minimum_value(T result, float max, T const& increment)
+{
+    return (result < 0) && (result < max - increment);
 }
 
 /// <summary>
@@ -72,22 +110,77 @@ bool is_overflow(T result, T const& increment)
 	switch (type_value)
 	{
 		case string_type_values::eChar:
-            return ValidValue(result, CHAR_MAX, increment);
+            return is_valid_maximum_value(result, CHAR_MAX, increment);
         case string_type_values::eWChar_T:
-            return ValidValue(result, WCHAR_MAX, increment);
+            return is_valid_maximum_value(result, WCHAR_MAX, increment);
         case string_type_values::eShortInt:
-            return ValidValue(result, SHRT_MAX, increment);
+            return is_valid_maximum_value(result, SHRT_MAX, increment);
         case string_type_values::eInt:
-            return ValidValue(result, INT_MAX, increment);
+            return is_valid_maximum_value(result, INT_MAX, increment);
         case string_type_values::eLong:
-            return ValidValue(result, LONG_MAX, increment);
+            return is_valid_maximum_value(result, LONG_MAX, increment);
         case string_type_values::eInt64:
-            return ValidValue(result, INT64_MAX, increment);
+            return is_valid_maximum_value(result, LLONG_MAX, increment);
+        case string_type_values::eUnsignedChar:
+            return is_valid_maximum_value(result, UCHAR_MAX, increment);
+        case string_type_values::eUnsignedShortInt:
+            return is_valid_maximum_value(result, USHRT_MAX, increment);
+        case string_type_values::eUnsignedInt:
+            return is_valid_maximum_value(result, UINT_MAX, increment);
+        case string_type_values::eUnsignedLong:
+            return is_valid_maximum_value(result, ULONG_MAX, increment);
+        case string_type_values::eUnsignedInt64:
+            return is_valid_maximum_value(result, ULLONG_MAX, increment);
+        case string_type_values::eFloat:
+            return is_valid_maximum_value(result, FLT_MAX, increment);
+        case string_type_values::eDouble:
+            return is_valid_maximum_value(result, DBL_MAX, increment);
+        case string_type_values::eLongDouble:
+            return is_valid_maximum_value(result, LDBL_MAX, increment);
 	    default:
 	        break;
 	}
 }
 
+template <typename T>
+bool is_underflow(T result, T const& increment)
+{
+    string_type_values type_value = convert_to_enum(std::string(typeid(result).name()));
+
+    switch (type_value)
+    {
+    case string_type_values::eChar:
+        return is_valid_minimum_value(result, CHAR_MIN, increment);
+    case string_type_values::eWChar_T:
+        return is_valid_minimum_value(result, WCHAR_MIN, increment);
+    case string_type_values::eShortInt:
+        return is_valid_minimum_value(result, SHRT_MIN, increment);
+    case string_type_values::eInt:
+        return is_valid_minimum_value(result, INT_MIN, increment);
+    case string_type_values::eLong:
+        return is_valid_minimum_value(result, LONG_MIN, increment);
+    case string_type_values::eInt64:
+        return is_valid_minimum_value(result, LLONG_MIN, increment);
+    case string_type_values::eUnsignedChar:
+        return is_valid_minimum_value(result, 0, increment);
+    case string_type_values::eUnsignedShortInt:
+        return is_valid_minimum_value(result, 0, increment);
+    case string_type_values::eUnsignedInt:
+        return is_valid_minimum_value(result, 0, increment);
+    case string_type_values::eUnsignedLong:
+        return is_valid_minimum_value(result, 0, increment);
+    case string_type_values::eUnsignedInt64:
+        return is_valid_minimum_value(result, 0, increment);
+    case string_type_values::eFloat:
+        return is_valid_minimum_value(result, FLT_MIN, increment);
+    case string_type_values::eDouble:
+        return is_valid_minimum_value(result, DBL_MIN, increment);
+    case string_type_values::eLongDouble:
+        return is_valid_minimum_value(result, LDBL_MIN, increment);
+    default:
+        break;
+    }
+}
 
 
 /// <summary>
@@ -136,7 +229,14 @@ T subtract_numbers(T const& start, T const& decrement, unsigned long int const& 
 
     for (unsigned long int i = 0; i < steps; ++i)
     {
-        result -= decrement;
+    	if (is_underflow(result, decrement))
+    	{
+            return false;
+    	}
+        else
+        {
+            result -= decrement;
+        }
     }
 
     return result;
@@ -227,13 +327,20 @@ void test_underflow()
     std::cout << "Underflow Test of Type = " << typeid(T).name() << std::endl;
     // END DO NOT CHANGE
 
-    std::cout << "\tSubtracting Numbers Without Overflow (" << +start << ", " << +decrement << ", " << steps << ") = ";
+    std::cout << "\tSubtracting Numbers Without Underflow (" << +start << ", " << +decrement << ", " << steps << ") = ";
     auto result = subtract_numbers<T>(start, decrement, steps);
     std::cout << +result << std::endl;
 
-    std::cout << "\tSubtracting Numbers With Overflow (" << +start << ", " << +decrement << ", " << (steps + 1) << ") = ";
+    std::cout << "\tSubtracting Numbers With Underflow (" << +start << ", " << +decrement << ", " << (steps + 1) << ") = ";
     result = subtract_numbers<T>(start, decrement, steps + 1);
-    std::cout << +result << std::endl;
+    if (result == 0)
+    {
+        std::cout << "Underflow prevented" << std::endl;
+    }
+    else
+    {
+        std::cout << +result << std::endl;
+    }
 }
 
 void do_overflow_tests(const std::string& star_line)
