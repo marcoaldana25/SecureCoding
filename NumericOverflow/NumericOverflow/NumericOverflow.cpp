@@ -218,7 +218,7 @@ T add_numbers(T const& start, T const& increment, unsigned long int const& steps
 /// </summary>
 /// <typeparam name="T">A type that with basic math functions</typeparam>
 /// <param name="start">The number to start with</param>
-/// <param name="increment">How much to subtract each step</param>
+/// <param name="decrement">How much to subtract each step</param>
 /// <param name="steps">The number of steps to iterate</param>
 /// <returns>start - (increment * steps)</returns>
 
