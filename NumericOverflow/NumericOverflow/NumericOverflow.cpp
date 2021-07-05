@@ -89,9 +89,9 @@ bool is_valid_maximum_value(T result, float max, T const& increment)
 }
 
 template <typename T>
-bool is_valid_minimum_value(T result, float max, T const& increment)
+bool is_valid_minimum_value(T result, float min, T const& decrement)
 {
-    return (result < 0) && (result < max - increment);
+    return (result == 0) && (result < min + decrement);
 }
 
 /// <summary>
@@ -110,7 +110,7 @@ bool is_overflow(T result, T const& increment)
 	switch (type_value)
 	{
 		case string_type_values::eChar:
-            return is_valid_maximum_value(result, std::numeric_limits<char>::max(), increment);
+            return is_valid_maximum_value(result, CHAR_MAX, increment);
         case string_type_values::eWChar_T:
             return is_valid_maximum_value(result, WCHAR_MAX, increment);
         case string_type_values::eShortInt:
@@ -143,40 +143,40 @@ bool is_overflow(T result, T const& increment)
 }
 
 template <typename T>
-bool is_underflow(T result, T const& increment)
+bool is_underflow(T result, T const& decrement)
 {
     string_type_values type_value = convert_to_enum(std::string(typeid(result).name()));
 
     switch (type_value)
     {
     case string_type_values::eChar:
-        return is_valid_minimum_value(result, CHAR_MIN, increment);
+        return is_valid_minimum_value(result, CHAR_MIN, decrement);
     case string_type_values::eWChar_T:
-        return is_valid_minimum_value(result, WCHAR_MIN, increment);
+        return is_valid_minimum_value(result, WCHAR_MIN, decrement);
     case string_type_values::eShortInt:
-        return is_valid_minimum_value(result, SHRT_MIN, increment);
+        return is_valid_minimum_value(result, SHRT_MIN, decrement);
     case string_type_values::eInt:
-        return is_valid_minimum_value(result, INT_MIN, increment);
+        return is_valid_minimum_value(result, INT_MIN, decrement);
     case string_type_values::eLong:
-        return is_valid_minimum_value(result, LONG_MIN, increment);
+        return is_valid_minimum_value(result, LONG_MIN, decrement);
     case string_type_values::eInt64:
-        return is_valid_minimum_value(result, LLONG_MIN, increment);
+        return is_valid_minimum_value(result, LLONG_MIN, decrement);
     case string_type_values::eUnsignedChar:
-        return is_valid_minimum_value(result, 0, increment);
+        return is_valid_minimum_value(result, 0, decrement);
     case string_type_values::eUnsignedShortInt:
-        return is_valid_minimum_value(result, 0, increment);
+        return is_valid_minimum_value(result, 0, decrement);
     case string_type_values::eUnsignedInt:
-        return is_valid_minimum_value(result, 0, increment);
+        return is_valid_minimum_value(result, 0, decrement);
     case string_type_values::eUnsignedLong:
-        return is_valid_minimum_value(result, 0, increment);
+        return is_valid_minimum_value(result, 0, decrement);
     case string_type_values::eUnsignedInt64:
-        return is_valid_minimum_value(result, 0, increment);
+        return is_valid_minimum_value(result, 0, decrement);
     case string_type_values::eFloat:
-        return is_valid_minimum_value(result, FLT_MIN, increment);
+        return is_valid_minimum_value(result, FLT_MIN, decrement);
     case string_type_values::eDouble:
-        return is_valid_minimum_value(result, DBL_MIN, increment);
+        return is_valid_minimum_value(result, DBL_MIN, decrement);
     case string_type_values::eLongDouble:
-        return is_valid_minimum_value(result, LDBL_MIN, increment);
+        return is_valid_minimum_value(result, LDBL_MIN, decrement);
     default:
         break;
     }
