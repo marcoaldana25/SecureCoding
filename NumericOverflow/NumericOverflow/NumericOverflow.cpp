@@ -4,6 +4,9 @@
 #include <iostream>     // std::cout
 #include <limits>       // std::numeric_limits
 
+/// <summary>
+/// Custom Enum values used to perform switch case logic to determine current type.
+/// </summary>
 enum class string_type_values
 {
 	eChar,
@@ -22,6 +25,12 @@ enum class string_type_values
 	eLongDouble
 };
 
+/// <summary>
+/// Accepts the string value of the current type and
+/// converts into a custom string_type_values enum.
+/// </summary>
+/// <param name="type_value"></param>
+/// <returns></returns>
 string_type_values convert_to_enum(std::string type_value)
 {
 	if (type_value == "char")
@@ -82,12 +91,31 @@ string_type_values convert_to_enum(std::string type_value)
     }
 }
 
+/// <summary>
+/// Responsible for preventing overflows by determining if the current result value is greater than 0, and
+/// if the result is greater than the maximum value allotted minus the desired increment
+/// for the current type.
+/// </summary>
+/// <typeparam name="T"></typeparam>
+/// <param name="result"></param>
+/// <param name="max"></param>
+/// <param name="increment"></param>
+/// <returns></returns>
 template <typename T>
 bool is_valid_maximum_value(T result, float max, T const& increment)
 {
     return (result > 0) && (result > max - increment);
 }
 
+/// <summary>
+/// Responsible for preventing underflows by determining if the current result value is equal to 0 and
+/// if the result is less than the minimum value allotted plus the desired decrement for the current type. 
+/// </summary>
+/// <typeparam name="T"></typeparam>
+/// <param name="result"></param>
+/// <param name="min"></param>
+/// <param name="decrement"></param>
+/// <returns></returns>
 template <typename T>
 bool is_valid_minimum_value(T result, float min, T const& decrement)
 {
@@ -101,7 +129,7 @@ bool is_valid_minimum_value(T result, float min, T const& decrement)
 /// <typeparam name="T">Generic type T</typeparam>
 /// <param name="result">Result value used to validate against</param>
 /// <param name="increment">Constant increment value passed in from Main.</param>
-/// <returns>True if result + increment will overflow. False if result + increment will not overflow.</returns>
+/// <returns>True if result will overflow. False if result will not overflow.</returns>
 template <typename T>
 bool is_overflow(T result, T const& increment)
 {
@@ -142,6 +170,14 @@ bool is_overflow(T result, T const& increment)
 	}
 }
 
+/// <summary>
+/// Responsible for checking the type of the given result and validating that the result
+/// value will remain above the specified type's minimum value. 
+/// </summary>
+/// <typeparam name="T">Generic type T</typeparam>
+/// <param name="result">Result value used to validate against</param>
+/// <param name="decrement">Constant decrement value passed in from Main.</param>
+/// <returns>True if result will underflow. False if  will not underflow.</returns>
 template <typename T>
 bool is_underflow(T result, T const& decrement)
 {
