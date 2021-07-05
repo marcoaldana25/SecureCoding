@@ -110,7 +110,7 @@ bool is_overflow(T result, T const& increment)
 	switch (type_value)
 	{
 		case string_type_values::eChar:
-            return is_valid_maximum_value(result, CHAR_MAX, increment);
+            return is_valid_maximum_value(result, std::numeric_limits<char>::max(), increment);
         case string_type_values::eWChar_T:
             return is_valid_maximum_value(result, WCHAR_MAX, increment);
         case string_type_values::eShortInt:
