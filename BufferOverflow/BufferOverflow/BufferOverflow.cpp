@@ -16,7 +16,10 @@ int main()
 	const std::string account_number = "CharlieBrown42";
 	char user_input[20];
 	std::cout << "Enter a value: ";
-	std::cin >> user_input;
+
+	// Updated std::cin to std::cin.getline() which saves the user input to the specified amount of characters
+	// and ignores the remainder of the input that exceeds this threshold.
+	std::cin.getline(user_input, 20);
 
 	std::cout << "You entered: " << user_input << std::endl;
 	std::cout << "Account Number = " << account_number << std::endl;
