@@ -7,6 +7,9 @@ bool do_even_more_custom_application_logic()
 {
 	// TODO: Throw any standard exception
 	std::cout << "Running Even More Custom Application Logic." << std::endl;
+
+	// Throw a standard exception which will be caught as part of the try/catch
+	// block in do_custom_application_logic
 	throw std::exception("An Exception has occurred");
 
 	return true;
@@ -18,6 +21,8 @@ void do_custom_application_logic()
 	//  a message and the exception.what(), then continues processing
 	std::cout << "Running Custom Application Logic." << std::endl;
 
+	// Wrap call to do_even_more_custom_application_logic in try/catch block,
+	// catching a standard exception if it gets thrown.
 	try
 	{
 		if (do_even_more_custom_application_logic())
@@ -34,6 +39,8 @@ void do_custom_application_logic()
 	//  and catch it explictly in main
 
 	std::cout << "Leaving Custom Application Logic." << std::endl;
+
+	// Throw logic_error that with message stating this is being thrown.
 	throw std::logic_error("A Logic Error has occurred");
 
 }
@@ -45,6 +52,8 @@ float divide(float num, float den)
 	try
 	{
 		if (den == 0)
+			// Throw runtime_error exception with message that states a Divide by 0
+			// error is about to occur.
 			throw std::runtime_error("Denominator cannot be 0");
 
 		return (num / den);
@@ -76,6 +85,9 @@ int main()
 	//  std::exception
 	//  uncaught exception 
 	//  that wraps the whole main function, and displays a message to the console.
+
+	// Wrap main method logic in try/catch block, with catching a Logic error, standard exception, and general
+	// catch all exception at the end on the block.
 	try
 	{
 		do_division();
