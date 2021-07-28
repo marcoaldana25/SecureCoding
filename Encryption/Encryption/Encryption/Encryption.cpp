@@ -31,7 +31,7 @@ std::string encrypt_decrypt(const std::string& source, const std::string& key)
     for (size_t i = 0; i < source_length; ++i)
     { // TODO: student need to change the next line from output[i] = source[i]
       // transform each character based on an xor of the key modded constrained to key length using a mod
-        output[i] = source[i];
+        output[i] = source[i] ^ key[i % key_length];
     }
 
     // our output length must equal our source length
@@ -44,7 +44,7 @@ std::string encrypt_decrypt(const std::string& source, const std::string& key)
 std::string read_file(const std::string& filename)
 {
     std::string file_text = "John Q. Smith\nThis is my test string";
-
+    
     // TODO: implement loading the file into a string
 
     return file_text;
