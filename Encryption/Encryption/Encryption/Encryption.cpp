@@ -44,8 +44,18 @@ std::string encrypt_decrypt(const std::string& source, const std::string& key)
 std::string read_file(const std::string& filename)
 {
     std::string file_text = "John Q. Smith\nThis is my test string";
-    
+	
     // TODO: implement loading the file into a string
+    std::ifstream myFile;
+    myFile.open(filename);
+
+	if (myFile.is_open())
+	{
+        std::stringstream buffer;
+        buffer << myFile.rdbuf();
+
+        file_text = buffer.str();
+	}
 
     return file_text;
 }
