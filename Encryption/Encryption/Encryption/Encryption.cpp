@@ -94,21 +94,26 @@ void save_data_file(const std::string& filename, const std::string& student_name
 	
     if (outputFile.is_open())
     {
+    	// Get localtime using localtime_s because localtime is deprecated and unsafe.
         struct std::tm localTime;
         time_t currentTime = time(nullptr);
 
     	::localtime_s(&localTime, &currentTime);
 
+    	// Extract Year/Month/Day from localTime. Add 1900 to year because tm_year returned the number of years
+    	// since 1900. Add 1 to tm_mon because month returned is based on a 0 index.
         int year = localTime.tm_year + 1900;
         int day = localTime.tm_mday;
         int month = localTime.tm_mon + 1;
 
-    	
+
+    	// Format message
         outputFile << "Student Name: " << student_name << "\n"
     		<< "Timestamp: " << year << "-" << month << "-" << day << "\n"
             << "Key Used: " << key << "\n"
             << "Data: " << data;
 
+    	// Close output file to dispose of stream.
         outputFile.close();
     }   
 }
