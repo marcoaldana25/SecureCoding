@@ -46,14 +46,19 @@ std::string read_file(const std::string& filename)
     std::string file_text = "John Q. Smith\nThis is my test string";
 	
     // TODO: implement loading the file into a string
+
+	// Open the file using the provided filename variable.
     std::ifstream myFile;
     myFile.open(filename);
 
+	// Only attempt to read the file if the file can be successfully opened.
 	if (myFile.is_open())
 	{
+		// Set the buffer of the file to a stringstream variable 'buffer'.
         std::stringstream buffer;
         buffer << myFile.rdbuf();
 
+		// Assign the contents of file_text to the string value of the input file.
         file_text = buffer.str();
 	}
 
@@ -83,6 +88,29 @@ void save_data_file(const std::string& filename, const std::string& student_name
     //  Line 2: timestamp (yyyy-mm-dd)
     //  Line 3: key used
     //  Line 4+: data
+    std::ofstream outputFile;
+
+    outputFile.open(filename);
+	
+    if (outputFile.is_open())
+    {
+        struct std::tm localTime;
+        time_t currentTime = time(nullptr);
+
+    	::localtime_s(&localTime, &currentTime);
+
+        int year = localTime.tm_year + 1900;
+        int day = localTime.tm_mday;
+        int month = localTime.tm_mon + 1;
+
+    	
+        outputFile << "Student Name: " << student_name << "\n"
+    		<< "Timestamp: " << year << "-" << month << "-" << day << "\n"
+            << "Key Used: " << key << "\n"
+            << "Data: " << data;
+
+        outputFile.close();
+    }   
 }
 
 int main()
